@@ -15,8 +15,12 @@
 #>
 
 # Import the module
-$ModulePath = Join-Path $PSScriptRoot "..\src\TensorLogic\Module\TensorLogic.psm1"
-Import-Module $ModulePath -Force
+if ($PSScriptRoot) {
+	$ModulePath = Join-Path $PSScriptRoot "..\src\TensorLogic\Module\TensorLogic.psm1"
+} else {
+	$ModulePath = "/home/runner/work/Sophia-Script-for-Windows/Sophia-Script-for-Windows/src/TensorLogic/Module/TensorLogic.psm1"
+}
+Import-Module $ModulePath -Force -Global
 
 Describe "TensorLogic Module Tests" {
 	Context "Module Import" {

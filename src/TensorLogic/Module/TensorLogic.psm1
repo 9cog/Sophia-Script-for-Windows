@@ -94,7 +94,12 @@ function Initialize-TensorValues
 
 	if ($Dimensions.Count -eq 1)
 	{
-		return ,@(0) * $Dimensions[0]
+		$Result = @()
+		for ($i = 0; $i -lt $Dimensions[0]; $i++)
+		{
+			$Result += 0
+		}
+		return $Result
 	}
 
 	$Result = @()
@@ -526,7 +531,9 @@ function Invoke-SymbolicReasoning
 			$Sum = 0.0
 			for ($j = 0; $j -lt $KnowledgeBase.FactCount; $j++)
 			{
-				$Sum += $RelationTensor.Values[$j][$i] * $CurrentVector.Values[$j]
+				$RelVal = $RelationTensor.Values[$j][$i]
+				$CurVal = $CurrentVector.Values[$j]
+				$Sum = $Sum + ($RelVal * $CurVal)
 			}
 			$NewVector.Values[$i] = $Sum
 		}
